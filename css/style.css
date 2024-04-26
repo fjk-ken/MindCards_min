@@ -10,6 +10,7 @@
     align-items: center;
     text-align: center;
 }
+
 .main 
 {
     display: flex;
@@ -45,4 +46,18 @@
     height: 0px;
     width: 0px;
 
+}
+#pain1
+{
+    background-color: #afa;
+}
+
+#pain2
+{
+    background-color: #ffa;
+}
+
+#pain3
+{
+    background-color: #aaa;
 }

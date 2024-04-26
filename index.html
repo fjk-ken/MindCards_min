@@ -76,28 +76,37 @@ Promise.all(promises).then(() => {
 
 $("#pain1").droppable({
     accept: ".dragableCard",
-    drop: function(event, ui){
+    drop: (event, ui) =>{
         setCardPosPoint(ui.draggable[0].id, 5);
+        $("#pain1").css("border", "1px solid black;");
+    },
+    over: (event, ui) => {
+        $("#pain1").css("border-width", "5px;");
+
+    },
+    out: (event, ui) => {
+        $("#pain1").css("border", "1px solid black;");
     }
+
 });
 
 $("#pain2").droppable({
     accept: ".dragableCard",
-    drop: function(event, ui){
+    drop: (event, ui) =>{
         setCardPosPoint(ui.draggable[0].id, 1);
     }
 });
 
 $("#pain3").droppable({
     accept: ".dragableCard",
-    drop: function(event, ui){
+    drop: (event, ui) =>{
         setCardPosPoint(ui.draggable[0].id, 0);
     },
 });
 
 $("#cardbase").droppable({
     accept: ".dragableCard",
-    drop: function(event, ui){
+    drop: (event, ui) =>{
         setCardPosPoint(ui.draggable[0].id, 0);
     },
 });
