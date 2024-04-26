@@ -40,6 +40,10 @@ $("#pain1").text(areaTitles[0]);
 $("#pain2").text(areaTitles[1]);
 $("#pain3").text(areaTitles[2]);
 
+function setCardPosPoint(cardid, posPoint){
+        getCardData(cardid).posPoint = posPoint;
+}
+
 
  cardMaster.forEach(element => {
     $("#cardbase").append("<div id=" + element.id + " class='dragableCard' ></div>");
@@ -50,21 +54,30 @@ $("#pain3").text(areaTitles[2]);
     $("#" + element.id).draggable();
     $("#" + element.id).mouseup(evnent => {
         var id = event.currentTarget.id;
-        const carddata = cardMaster.findIndex(data => data.id == id);
-        cardMaster[carddata].pos = [$("#"+ id).offset().left / $(window).width(), $("#"+ id).offset().top / $(window).height()];
+        getCardData(id).pos = {left: $("#"+ id).offset().left / $(window).width(), top:  $("#"+ id).offset().top / $(window).height()};
     })
 });
 $("#pain1").droppable({
     accept: ".dragableCard",
     drop: function(event, ui){
-        const carddata = cardMaster.findIndex(data => data.id == ui.draggable[0].id);
-        cardMaster[carddata].posPoint = 5;
+        setCardPosPoint(ui.draggable[0].id, 5);
+    },
+    out: function(event, ui){
+        setCardPosPoint(ui.draggable[0].id, 0);
     }
 });
+
+$(window).resize(function(){
+    $(".dragableCard").each((index, card) => {
+        const cardData = getCardData(card.id);
+        $(card).offset({top: $(card).offset.top, left: cardData.pos.left * $(window).width()});
+    })
+})
 
 
 
 var mindChart = new Chart($("#mindChart") , {type: 'bar', data: {labels: mindLabels, datasets: [{label: '', data: mindData}]}, options:{scales:{yAxes:[{ticks:{max: 150, Min: 0, }}]}}});
+
 </script>
 </body>
 </html>
