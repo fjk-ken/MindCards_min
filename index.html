@@ -61,16 +61,34 @@ $("#pain1").droppable({
     accept: ".dragableCard",
     drop: function(event, ui){
         setCardPosPoint(ui.draggable[0].id, 5);
-    },
-    out: function(event, ui){
-        setCardPosPoint(ui.draggable[0].id, 0);
     }
+});
+
+$("#pain2").droppable({
+    accept: ".dragableCard",
+    drop: function(event, ui){
+        setCardPosPoint(ui.draggable[0].id, 1);
+    }
+});
+
+$("#pain3").droppable({
+    accept: ".dragableCard",
+    drop: function(event, ui){
+        setCardPosPoint(ui.draggable[0].id, 0);
+    },
+});
+
+$("#cardbase").droppable({
+    accept: ".dragableCard",
+    drop: function(event, ui){
+        setCardPosPoint(ui.draggable[0].id, 0);
+    },
 });
 
 $(window).resize(function(){
     $(".dragableCard").each((index, card) => {
         const cardData = getCardData(card.id);
-        $(card).offset({top: $(card).offset.top, left: cardData.pos.left * $(window).width()});
+        $(card).offset({top: $(card).offset().top, left: cardData.pos.left * $(window).width()});
     })
 })
 
