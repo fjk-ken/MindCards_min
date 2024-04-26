@@ -31,6 +31,10 @@
     display: flex;
     flex-wrap: wrap;
 }
+.buttonpanel
+{
+    margin: 0.1em 2% 0.1em 2%;
+}
 
 .dragableCard
 {

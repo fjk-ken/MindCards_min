@@ -9,7 +9,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-        <script src="data/carddata.js"></script>
+    
+    <script src="data/carddata.js"></script>
 
 </head>
 <body>
@@ -21,7 +22,11 @@
         <div id="pain3" class="dropzone"></div>
     </div>
     <div id="cardbase"></div>
+    <div class="buttonpanel">
+        <button id="createChart">結果を表示</button>
+    </div>
     <div id="mindGraph">
+    
         <canvas id="mindChart"></canvas>
     </div>
 
@@ -30,7 +35,10 @@
 var areaTitles = ["そう思う", "どちらでもない", "そう思わない"];
 
 var mindLabels = ["競争", "達成感","存在感", "思いやり","関連性","自信","未来の思想家","主催者","発見者","信頼性"];
+var chartColor = ["#ffcccc", "#ccffcc", "#ccccff", "#ffffcc", "#ffccff", "#ccffff", "#ffaacc", "#aaffcc", "#ccaaff", "#ff88aa"];
 var mindData = [0,0,0,0,0,0,0,0,0,0];
+
+var mindChart;
 
 const getCardData = id => {
     const carddata = cardMaster.findIndex(data => data.id == id);
@@ -109,9 +117,33 @@ $(window).resize(function(){
     })
 })
 
+$("#createChart").click(() =>{
 
+    var createPromises = [];
+    mindData = [0,0,0,0,0,0,0,0,0,0];
 
-var mindChart = new Chart($("#mindChart") , {type: 'bar', data: {labels: mindLabels, datasets: [{label: '', data: mindData}]}, options:{scales:{yAxes:[{ticks:{max: 150, Min: 0, }}]}}});
+    cardMaster.forEach(card => {
+        createPromises.push(
+            new Promise((resolve) =>{
+                for(i =0 ; i < mindData.length; i++)
+                {
+                    if(Number.isInteger(card.posPoint)) {
+                        mindData[i] += (card.point[i] * card.posPoint);
+                    }
+                }
+                resolve();
+            })
+        )
+    })
+    
+    Promise.all(createPromises).then(() =>{
+        if (typeof mindChart !== 'undefined' && mindChart) {
+            mindChart.destroy();
+        }
+        mindChart = new Chart($("#mindChart"), {type: 'bar', data: {labels: mindLabels, datasets: [{label: '結果', data: mindData, backgroundColor: chartColor}]}, options:{legend:{display:false}, scales:{yAxes:[{ticks:{max: 15, min: 0, }}]}}});
+    })
+
+})
 
 </script>
 </body>
