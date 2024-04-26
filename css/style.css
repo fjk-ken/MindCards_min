@@ -26,6 +26,7 @@
     border-radius: 5px;
     margin: 2%;
     padding: 1%;
+    min-height: 400px;
     width: 90%;
     display: flex;
     flex-wrap: wrap;
@@ -33,6 +34,15 @@
 
 .dragableCard
 {
+    overflow:  auto;
     margin: 5px;
     padding: 5px;
+}
+#movedcard
+{
+    position: relative;
+    overflow: visible;
+    height: 0px;
+    width: 0px;
+
 }

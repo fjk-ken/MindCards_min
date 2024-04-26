@@ -14,6 +14,7 @@
 </head>
 <body>
 
+    <div id="movedcard"></div>
     <div class="main">
         <div id="pain1" class="dropzone"></div>
         <div id="pain2" class="dropzone"></div>
@@ -44,19 +45,35 @@ function setCardPosPoint(cardid, posPoint){
         getCardData(cardid).posPoint = posPoint;
 }
 
+var promises =[];
 
  cardMaster.forEach(element => {
-    $("#cardbase").append("<div id=" + element.id + " class='dragableCard' ></div>");
-    $("#" + element.id).addClass("dragableCard");
+    promises.push(
+        new Promise((resolve) =>{
+            $("#cardbase").append("<div id=" + element.id + " class='dragableCard' ></div>");
+            $("#" + element.id).addClass("dragableCard");
 
-    $("#" + element.id).append("<img src=cards/" + getCardData(element.id).filename + " />");
-//  $("#" + element.id).css("background-image", "url(cards/" + getCardData(element.id).filename + ")");
-    $("#" + element.id).draggable();
-    $("#" + element.id).mouseup(evnent => {
-        var id = event.currentTarget.id;
-        getCardData(id).pos = {left: $("#"+ id).offset().left / $(window).width(), top:  $("#"+ id).offset().top / $(window).height()};
-    })
+            $("#" + element.id).append("<img src=cards/" + getCardData(element.id).filename + " />");
+            //  $("#" + element.id).css("background-image", "url(cards/" + getCardData(element.id).filename + ")");
+            $("#" + element.id).draggable();
+            $("#" + element.id).mouseup(evnent => {
+                var id = event.currentTarget.id;
+                getCardData(id).pos = {left: $("#"+ id).offset().left / $(window).width(), top:  $("#"+ id).offset().top / $(window).height()};
+
+                var offset = $("#"+ id).offset();
+                $("#"+ id).prependTo("#movedcard");
+                $("#"+ id).css("position", "absolute");
+                $("#"+ id).offset(offset);
+
+            })
+            resolve();
+        })
+    )
 });
+
+Promise.all(promises).then(() => {
+})
+
 $("#pain1").droppable({
     accept: ".dragableCard",
     drop: function(event, ui){
