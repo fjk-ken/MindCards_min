@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     
     <script src="data/carddata.js"></script>
+    <script src="data/setting.js"></script>
 
 </head>
 <body>
@@ -32,12 +33,6 @@
 
 <script>
 
-var areaTitles = ["そう思う", "どちらでもない", "そう思わない"];
-
-var mindLabels = ["競争", "達成感","存在感", "思いやり","関連性","自信","未来の思想家","主催者","発見者","信頼性"];
-var chartColor = ["#ffcccc", "#ccffcc", "#ccccff", "#ffffcc", "#ffccff", "#ccffff", "#ffaacc", "#aaffcc", "#ccaaff", "#ff88aa"];
-var mindData = [0,0,0,0,0,0,0,0,0,0];
-
 var mindChart;
 
 const getCardData = id => {
@@ -45,13 +40,13 @@ const getCardData = id => {
     return cardMaster[carddata];
 }
 
+const setCardPosPoint = (cardid, posPoint) =>{
+        getCardData(cardid).posPoint = posPoint;
+}
+
 $("#pain1").text(areaTitles[0]);
 $("#pain2").text(areaTitles[1]);
 $("#pain3").text(areaTitles[2]);
-
-function setCardPosPoint(cardid, posPoint){
-        getCardData(cardid).posPoint = posPoint;
-}
 
 var promises =[];
 
@@ -129,7 +124,7 @@ $(window).resize(function(){
 $("#createChart").click(() =>{
 
     var createPromises = [];
-    mindData = [0,0,0,0,0,0,0,0,0,0];
+    var mindData = [0,0,0,0,0,0,0,0,0,0];
 
     cardMaster.forEach(card => {
         createPromises.push(
