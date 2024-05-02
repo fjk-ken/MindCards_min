@@ -176,7 +176,12 @@ $("#createChart").click(() =>{
         if (typeof mindChart !== 'undefined' && mindChart) {
             mindChart.destroy();
         }
-        mindChart = new Chart($("#mindChart"), {type: 'bar', data: {labels: mindLabels, datasets: [{label: '結果', data: mindData, backgroundColor: chartColor}]}, options:{legend:{display:false}, scales:{yAxes:[{ticks:{max: 15, min: 0, }}]}}});
+        mindChart = new Chart($("#mindChart"), {type: 'horizontalBar',
+         data: {labels: mindLabels, datasets: [{label: '結果', data: mindData, backgroundColor: chartColor}]},
+         options: {indexAxis: 'y',
+                    legend: {display:false}, 
+                    scales: {xAxes:[{ticks:{max: 15, min: 0, }}]}, 
+                    plugins:{}}});
     })
 
 })
