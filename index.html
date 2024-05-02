@@ -44,6 +44,35 @@ const setCardPosPoint = (cardid, posPoint) =>{
         getCardData(cardid).posPoint = posPoint;
 }
 
+const renewCardPos = () => {
+    let currentleft = $("#cardbase").offset().left;
+    let currenttop = $("#cardbase").offset().top;
+    var dontMoveCardIndex = 0;
+    $(".dragableCard").sort((a,b) =>{return $(a).id > $(b).id ? 1 : -1}).each((index, card) => {
+        const cardData = getCardData(card.id);
+        if(cardData != 'undefined' && cardData.pos != 'undefined' && cardData.pos) {
+            $(card).offset({top: $(card).offset().top, left: cardData.pos.left * $(window).width()});
+        } else {
+            currentleft += 5;
+            let cardleft = $(card).width();
+            cardleft += currentleft;
+            if(cardleft > $("#cardbase").width()){
+                currentleft = $("#cardbase").offset().left;
+                currenttop += $(card).height() + 5;
+            }
+            var currentoffset = {
+                left: currentleft,
+                top: currenttop
+            };
+
+            $(card).offset(currentoffset);
+            currentleft += $(card).width();
+        }
+        
+    })
+    $("#cardbase").height(currenttop - $("#cardbase").offset().top + $(".dragableCard").height() + 5);
+}
+
 $("#pain1").text(areaTitles[0]);
 $("#pain2").text(areaTitles[1]);
 $("#pain3").text(areaTitles[2]);
@@ -98,8 +127,9 @@ $(() =>{
         $(".dragableCard").each((index, element) => {
             var cardOffset = cardOffsets[cardOffsets.findIndex(data => data.id == $(element).attr("id"))];
             $(element).prependTo("#movedcard");
-                    $(element).css("position", "absolute");
-                    $(element).offset(cardOffset.offset);
+            $(element).css("position", "absolute");
+//            $(element).offset(cardOffset.offset);
+            renewCardPos();
 
         })
 
@@ -146,11 +176,9 @@ $("#cardbase").droppable({
     },
 });
 
-$(window).resize(function(){
-    $(".dragableCard").each((index, card) => {
-        const cardData = getCardData(card.id);
-        $(card).offset({top: $(card).offset().top, left: cardData.pos.left * $(window).width()});
-    })
+$(window).resize(() => {
+    renewCardPos();
+
 })
 
 $("#createChart").click(() =>{
