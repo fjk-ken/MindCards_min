@@ -64,8 +64,8 @@ var promises =[];
                 getCardData(id).pos = {left: $("#"+ id).offset().left / $(window).width(), top:  $("#"+ id).offset().top / $(window).height()};
 
                 var offset = $("#"+ id).offset();
-                $("#"+ id).prependTo("#movedcard");
-                $("#"+ id).css("position", "absolute");
+//                $("#"+ id).prependTo("#movedcard");
+//                $("#"+ id).css("position", "absolute");
                 $("#"+ id).offset(offset);
 
             })
@@ -75,7 +75,39 @@ var promises =[];
 });
 
 Promise.all(promises).then(() => {
+
 })
+
+$(() =>{
+    var cardsetPromises = [];
+    var cardOffsets = [];
+
+
+    $(".dragableCard").each((index, element) => {
+        cardsetPromises.push(
+            new Promise((resolve) =>{
+                var offset = $(element).offset();
+                cardOffsets.push({id: $(element).attr("id"), offset: offset});
+                
+                resolve();
+            })
+        )
+    })
+
+    Promise.all(cardsetPromises).then(() =>{
+        $(".dragableCard").each((index, element) => {
+            var cardOffset = cardOffsets[cardOffsets.findIndex(data => data.id == $(element).attr("id"))];
+            $(element).prependTo("#movedcard");
+                    $(element).css("position", "absolute");
+                    $(element).offset(cardOffset.offset);
+
+        })
+
+    })
+
+})
+
+
 
 $("#pain1").droppable({
     accept: ".dragableCard",
