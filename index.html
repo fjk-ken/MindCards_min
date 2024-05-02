@@ -56,7 +56,7 @@ var promises =[];
             $("#cardbase").append("<div id=" + element.id + " class='dragableCard' ></div>");
             $("#" + element.id).addClass("dragableCard");
 
-            $("#" + element.id).append("<img src=cards/" + getCardData(element.id).filename + " />");
+            $("#" + element.id).append("<img src='cards/" + getCardData(element.id).filename + "'' alt='" + getCardData(element.id).text + "'' />");
             //  $("#" + element.id).css("background-image", "url(cards/" + getCardData(element.id).filename + ")");
             $("#" + element.id).draggable();
             $("#" + element.id).mouseup(evnent => {
