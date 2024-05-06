@@ -107,7 +107,7 @@ Promise.all(promises).then(() => {
 
 })
 
-$(() =>{
+$(window).on('load',() => {
     var cardsetPromises = [];
     var cardOffsets = [];
 
@@ -128,7 +128,6 @@ $(() =>{
             var cardOffset = cardOffsets[cardOffsets.findIndex(data => data.id == $(element).attr("id"))];
             $(element).prependTo("#movedcard");
             $(element).css("position", "absolute");
-//            $(element).offset(cardOffset.offset);
             renewCardPos();
 
         })
