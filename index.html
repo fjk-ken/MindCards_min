@@ -35,6 +35,8 @@
 
 var mindChart;
 
+var zindex = 1;
+
 const getCardData = id => {
     const carddata = cardMaster.findIndex(data => data.id == id);
     return cardMaster[carddata];
@@ -95,9 +97,13 @@ var promises =[];
                 var offset = $("#"+ id).offset();
 //                $("#"+ id).prependTo("#movedcard");
 //                $("#"+ id).css("position", "absolute");
-                $("#"+ id).offset(offset);
+                $("#" + id).offset(offset);
 
-            })
+            });
+            $("#" + element.id).mousedown(evnent => {
+                var id = event.currentTarget.id;
+                $("#" + id).css("z-index", zindex ++);
+            });
             resolve();
         })
     )
