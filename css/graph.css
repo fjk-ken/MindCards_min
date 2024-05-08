@@ -1,0 +1,57 @@
+.graphbg {
+    width: 100%;
+  }
+  
+  .graphbar {
+    width: 0%;
+  }
+
+.graphmargin{
+    padding: 0.5em 0px;
+  }
+  .axismargin{
+    margin: 5px;
+    display: flex;
+  }
+  .axis{
+    border-top: 1px gray solid;
+    border-right: 1px gray solid;
+    text-align: right;
+    width:33.3%
+  }
+  
+   th.dataname
+  {
+    width: 10%;
+    font-weight: normal;
+  }
+  td.graphcell
+  {
+    border: 1px gray solid;
+    border-top: 0px;
+    margin: 0px;
+    height: 1.2em;
+  }
+    
+  .dataimg
+  {
+    height: 1.5em;
+    padding: 5px 0px 0px 5px;
+    visibility: hidden;
+  }
+  .graphvalue
+  {
+    text-align: right;
+    padding-left: 0.5em;
+    color: white;
+    text-shadow:
+        1px 1px 1px black,
+        -1px 1px 1px black,
+        1px -1px 1px black,
+        -1px -1px 1px black,
+        1px 0px 1px black,
+        0px 1px 1px black,
+        -1px 0px 1px black,
+        0px -1px 1px black;
+
+  }
