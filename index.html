@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
     
     <script src="data/carddata.js"></script>
     <script src="data/setting.js"></script>
@@ -209,12 +209,28 @@ $("#createChart").click(() =>{
         if (typeof mindChart !== 'undefined' && mindChart) {
             mindChart.destroy();
         }
-        mindChart = new Chart($("#mindChart"), {type: 'horizontalBar',
-         data: {labels: mindLabels, datasets: [{label: '結果', data: mindData, backgroundColor: chartColor}]},
-         options: {indexAxis: 'y',
-                    legend: {display:false}, 
-                    scales: {xAxes:[{ticks:{max: 15, min: 0, }}]}, 
-                    plugins:{}}});
+        mindChart = new Chart($("#mindChart"), {
+            type: 'bar',
+            data: {
+                labels: mindLabels, 
+                datasets: [{
+                    label: '結果', 
+                    data: mindData, 
+                    backgroundColor: chartColor
+                }]},
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x:{
+                        max: 15,
+                        min: 0
+                    }
+                }, 
+                plugins:{
+                    legend: {display: false}, 
+                }
+            }
+        });
     })
 
 })
