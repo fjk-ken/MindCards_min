@@ -6,12 +6,13 @@
     <title>MindCards</title>
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/graph.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     
     <script src="data/carddata.js"></script>
     <script src="data/setting.js"></script>
+    <script src="js/graph.js"></script>
 
 </head>
 <body>
@@ -27,8 +28,8 @@
         <button id="createChart">結果を表示</button>
     </div>
     <div id="mindGraph">
-    
-        <canvas id="mindChart"></canvas>
+        <table id="graphtable">
+        </table>
     </div>
 
 <script>
@@ -79,15 +80,19 @@ $("#pain1").text(areaTitles[0]);
 $("#pain2").text(areaTitles[1]);
 $("#pain3").text(areaTitles[2]);
 
+var graphValue = [0,0,0,0,0,0,0,0,0,0];
+
+createGraph($("#graphtable"), mindData);
+
 var promises =[];
 
  cardMaster.forEach(element => {
     promises.push(
         new Promise((resolve) =>{
-            $("#cardbase").append("<div id=" + element.id + " class='dragableCard' ></div>");
+            $("#cardbase").append(`<div id="${element.id}" class="dragableCard"></div>`);
             $("#" + element.id).addClass("dragableCard");
 
-            $("#" + element.id).append("<img src='cards/" + getCardData(element.id).filename + "'' alt='" + getCardData(element.id).text + "'' />");
+            $("#" + element.id).append(`<img src="cards/${getCardData(element.id).filename}" alt="${getCardData(element.id).text}" />`);
             //  $("#" + element.id).css("background-image", "url(cards/" + getCardData(element.id).filename + ")");
             $("#" + element.id).draggable();
             $("#" + element.id).mouseup(evnent => {
@@ -189,15 +194,15 @@ $(window).resize(() => {
 $("#createChart").click(() =>{
 
     var createPromises = [];
-    var mindData = [0,0,0,0,0,0,0,0,0,0];
+    graphValue = [0,0,0,0,0,0,0,0,0,0];
 
     cardMaster.forEach(card => {
         createPromises.push(
             new Promise((resolve) =>{
-                for(i =0 ; i < mindData.length; i++)
+                for(i =0 ; i < graphValue.length; i++)
                 {
                     if(Number.isInteger(card.posPoint)) {
-                        mindData[i] += (card.point[i] * card.posPoint);
+                        graphValue[i] += (card.point[i] * card.posPoint);
                     }
                 }
                 resolve();
@@ -206,15 +211,35 @@ $("#createChart").click(() =>{
     })
     
     Promise.all(createPromises).then(() =>{
+/*
         if (typeof mindChart !== 'undefined' && mindChart) {
             mindChart.destroy();
         }
-        mindChart = new Chart($("#mindChart"), {type: 'horizontalBar',
-         data: {labels: mindLabels, datasets: [{label: '結果', data: mindData, backgroundColor: chartColor}]},
-         options: {indexAxis: 'y',
-                    legend: {display:false}, 
-                    scales: {xAxes:[{ticks:{max: 15, min: 0, }}]}, 
-                    plugins:{}}});
+        mindChart = new Chart($("#mindChart"), {
+            type: 'bar',
+            data: {
+                labels: mindLabels, 
+                datasets: [{
+                    label: '結果', 
+                    data: mindData, 
+                    backgroundColor: chartColor
+                }]},
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x:{
+                        max: 15,
+                        min: 0
+                    }
+                }, 
+                plugins:{
+                    legend: {display: false}, 
+                }
+            }
+        });
+        */
+        graphview(graphValue);
+
     })
 
 })
