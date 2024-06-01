@@ -69,6 +69,9 @@ const graphrefresh = timestamp => {
             $("#img" + data.id).css({'visibility': 'visible'});
             $("#img" + data.id).offset({left: $("#graph" + data.id).offset().left + $("#graph" + data.id).width() +5, top: $("#img" + data.id).offset().top});
         }
+        else{
+            $("#graph" + data.id + " span").text("");
+        }
     }
   
     if ((new Date()).getTime() <= starttime.getTime() + 3000) {
