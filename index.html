@@ -147,8 +147,6 @@ $(window).on('load',() => {
 
 })
 
-
-
 $("#pain1").droppable({
     accept: ".dragableCard",
     drop: (event, ui) =>{
@@ -211,33 +209,7 @@ $("#createChart").click(() =>{
     })
     
     Promise.all(createPromises).then(() =>{
-/*
-        if (typeof mindChart !== 'undefined' && mindChart) {
-            mindChart.destroy();
-        }
-        mindChart = new Chart($("#mindChart"), {
-            type: 'bar',
-            data: {
-                labels: mindLabels, 
-                datasets: [{
-                    label: '結果', 
-                    data: mindData, 
-                    backgroundColor: chartColor
-                }]},
-            options: {
-                indexAxis: 'y',
-                scales: {
-                    x:{
-                        max: 15,
-                        min: 0
-                    }
-                }, 
-                plugins:{
-                    legend: {display: false}, 
-                }
-            }
-        });
-        */
+
         graphview(graphValue);
 
     })
