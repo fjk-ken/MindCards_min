@@ -1,9 +1,5 @@
 const areaTitles = ["そう思う", "どちらでもない", "そう思わない"];
 
-//const mindLabels = ["何でも勝ちたい", "やるぞ!","仲良くしたい", "思いやり","目立ちたい","未来にワクワク","やればできる","なぜ？どうして？","まかせて!","計画したい"];
-//var chartColor = ["#ffcccc", "#ccffcc", "#ccccff", "#ffffcc", "#ffccff", "#ccffff", "#ffaacc", "#aaffcc", "#ccaaff", "#ff88aa"];
-//const chartColor = ["red", "yellow", "green", "pink", "orange", "purple", "lightblue", "navy", "brown", "gray"];
-
 const mindData = [
     {id: "type1", text: "何でも勝ちたい", color: "red", charactor: "kyousou_red.png"},
     {id: "type2", text: "やるぞ!", color: "yellow", charactor: "tassei_yellow.png"},
