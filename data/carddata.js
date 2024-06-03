@@ -25,6 +25,6 @@ var cardMaster =   [{id: "card01", text: "何でも1番になりたい",        
                     {id: "card25", text: "新しいことや興味深いことをつい見つけてしまう",            filename: "card25.png", point: [0,0,0,0,0,0,0,1,0,0]},
                     {id: "card26", text: "どうして？なぜ？と深く考える",                            filename: "card26.png", point: [0,0,0,0,0,0,0,1,0,0]},
                     {id: "card27", text: "仕組みを知りたい、解き明かしたい",                        filename: "card27.png", point: [0,0,0,0,0,0,0,1,0,0]},
-                    {id: "card28", text: "自分で行ったことは絶対にやりとげる",                      filename: "card28.png", point: [0,0,0,0,0,0,0,0,1,0]},
+                    {id: "card28", text: "自分で言ったことは絶対にやりとげる",                      filename: "card28.png", point: [0,0,0,0,0,0,0,0,1,0]},
                     {id: "card29", text: "仕事やお手伝いをまかされるとうれしい",                    filename: "card29.png", point: [0,0,0,0,0,0,0,0,1,0]},
                     {id: "card30", text: "宿題のしめきりは必ず守る",                                filename: "card30.png", point: [0,0,0,0,0,0,0,0,1,0]}];
