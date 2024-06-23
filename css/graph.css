@@ -62,3 +62,7 @@ td.graphcell
     padding: 0px 0px 0px 5px;
     visibility: hidden;
 }
+#graphwork
+{
+    height: 0px;
+}
