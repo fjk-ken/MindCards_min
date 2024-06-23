@@ -31,6 +31,9 @@
         <table id="graphtable">
         </table>
     </div>
+    <div id="focuscardpain">
+        <img src="cards/card01.png" width="80%" alt="test" id="focuscard">
+    </div>
 
 <script>
 
@@ -109,6 +112,18 @@ var promises =[];
                 var id = event.currentTarget.id;
                 $("#" + id).css("z-index", zindex ++);
             });
+            $("#" + element.id).dblclick(event => {
+            $("#focuscard").offset({top:$("#focuscard").height() /8 , left: $("#focuscard").offset().left});
+                $("#focuscard").attr("alt", `${getCardData(element.id).text}`);
+                $("#focuscard").attr("src", `cards/${getCardData(element.id).filename}`);
+                $("#focuscard").css("visibility", "visible");
+                $("#focuscard").css("z-index", 2147483647);
+                $("#focuscard").show();
+                $("#focuscard").offset({top:$("#focuscard").height() /8 , left: $("#focuscard").offset().left});
+            });
+            $("#focuscard").click(element => {
+                $("#focuscard").hide();
+            })
             resolve();
         })
     )
@@ -141,9 +156,10 @@ $(window).on('load',() => {
             $(element).css("position", "absolute");
             renewCardPos();
 
+            $("#focuscard").hide();
         })
 
-    })
+    });
 
 })
 
@@ -186,6 +202,7 @@ $("#cardbase").droppable({
 
 $(window).resize(() => {
     renewCardPos();
+    $("#focuscard").offset({top:$("#focuscard").height() /8 , left: $("#focuscard").offset().left});
 
 })
 
@@ -214,7 +231,8 @@ $("#createChart").click(() =>{
 
     })
 
-})
+});
+
 
 </script>
 </body>
