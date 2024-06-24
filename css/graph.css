@@ -35,11 +35,13 @@ td.graphcell
     width: 0%;
     text-align: right;
     padding: 0px;
+    display:block;
+    float: left;
 }
 
 .graphvalue
 {
-    margin-right: -2.5em;
+    margin-top: 0.5em;
     text-align: right;
     vertical-align: super;
     padding: 0 0.5em;
