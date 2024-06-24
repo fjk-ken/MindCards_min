@@ -31,9 +31,6 @@
         <table id="graphtable">
         </table>
     </div>
-    <div id="focuscardpain">
-        <img src="cards/card01.png" width="80%" alt="test" id="focuscard">
-    </div>
 
 <script>
 
@@ -98,13 +95,12 @@ var promises =[];
             $("#" + element.id).append(`<img src="cards/${getCardData(element.id).filename}" alt="${getCardData(element.id).text}" height="80" />`);
             //  $("#" + element.id).css("background-image", "url(cards/" + getCardData(element.id).filename + ")");
             $("#" + element.id).draggable();
+            getCardData(element.id).isLarge = false;
             $("#" + element.id).mouseup(evnent => {
                 var id = event.currentTarget.id;
                 getCardData(id).pos = {left: $("#"+ id).offset().left / $(window).width(), top:  $("#"+ id).offset().top / $(window).height()};
 
                 var offset = $("#"+ id).offset();
-//                $("#"+ id).prependTo("#movedcard");
-//                $("#"+ id).css("position", "absolute");
                 $("#" + id).offset(offset);
 
             });
@@ -113,17 +109,35 @@ var promises =[];
                 $("#" + id).css("z-index", zindex ++);
             });
             $("#" + element.id).dblclick(event => {
-            $("#focuscard").offset({top:$("#focuscard").height() /8 , left: $("#focuscard").offset().left});
-                $("#focuscard").attr("alt", `${getCardData(element.id).text}`);
-                $("#focuscard").attr("src", `cards/${getCardData(element.id).filename}`);
-                $("#focuscard").css("visibility", "visible");
-                $("#focuscard").css("z-index", 2147483647);
-                $("#focuscard").show();
-                $("#focuscard").offset({top:$("#focuscard").height() /8 , left: $("#focuscard").offset().left});
+                var id = event.currentTarget.id;
+                if(getCardData(id).isLarge == false){
+//                    var scale = {width: $("#" + element.id).width() * 2, height: $("#" + element.id).height() * 2};
+                    var animatepos = {
+                        top: $("#" + element.id).position().top - $("#" + element.id).children("img").height() /2,
+                        left: $("#" + element.id).position().left - $("#" + element.id).children("img").width() /2
+                    };
+                    var animescale = {
+                        width:  $("#" + element.id).children("img").width() * 2,
+                        height: $("#" + element.id).children("img").height() * 2,
+                    };
+                    $("#" + element.id).animate(animatepos, 500);
+                    $("#" + element.id).children("img").animate(animescale, 500);
+                    getCardData(id).isLarge = true;
+                }
+                else
+                {
+                    var animatepos = {
+                        top: $("#" + element.id).position().top + $("#" + element.id).children("img").height() /4,
+                        left: $("#" + element.id).position().left + $("#" + element.id).children("img").width() /4
+                    };
+                    var animescale = {width:  $("#" + element.id).children("img").width() / 2, height:  $("#" + element.id).children("img").height() / 2};
+                    $("#" + element.id).animate(animatepos, 500);
+                    $("#" + element.id).children("img").animate(animescale, 500);
+                    getCardData(id).isLarge = false;
+
+                }
+
             });
-            $("#focuscard").click(element => {
-                $("#focuscard").hide();
-            })
             resolve();
         })
     )
@@ -156,7 +170,6 @@ $(window).on('load',() => {
             $(element).css("position", "absolute");
             renewCardPos();
 
-            $("#focuscard").hide();
         })
 
     });
@@ -202,9 +215,8 @@ $("#cardbase").droppable({
 
 $(window).resize(() => {
     renewCardPos();
-    $("#focuscard").offset({top:$("#focuscard").height() /8 , left: $("#focuscard").offset().left});
 
-})
+});
 
 $("#createChart").click(() =>{
 
