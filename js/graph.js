@@ -49,13 +49,15 @@ const graphview = (datas) =>{
         else{
             $("#graph" + graphData[i].id + " span").text("");
         }
-        $("#graph" + graphData[i].id).animate({width: `${graphValue[i] / maxgraph * 100}%`}, 1000);
+        $("#graph" + graphData[i].id).animate({
+            width: `${graphValue[i] / maxgraph * (graphwork.width() - $(".dataimg").width())/graphwork.width()*100}%`
+        }, 2000);
     }
 }
 
 
 $(window).on("load",() => {
-    var width = $("tr").first().width() - $("th").first().width();
+    var width = $("tr").first().width() - $("th").first().width() + $(".dataimg").width();
     graphwork.width(width);
     for(var i = 0; i < $(".graphmargin").length; i ++){
         $($(".graphmargin")[i]).offset($($(".tabletop")[i]).offset());
@@ -65,11 +67,10 @@ $(window).on("load",() => {
 });
 
 $(window).resize(() => {
-    var width = $("tr").first().width() - $("th").first().width();
+    var width = $("tr").first().width() - $("th").first().width() + $(".dataimg").width();
     graphwork.width(width);
     for(var i = 0; i < $(".graphmargin").length; i ++){
         $($(".graphmargin")[i]).offset($($(".tabletop")[i]).offset());
-        var graphbar =  $($(".graphmargin")[i]).find(".graphbar");
 
     }
 });
