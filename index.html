@@ -93,7 +93,6 @@ var promises =[];
             $("#" + element.id).addClass("dragableCard");
 
             $("#" + element.id).append(`<img src="cards/${getCardData(element.id).filename}" alt="${getCardData(element.id).text}" height="80" />`);
-            //  $("#" + element.id).css("background-image", "url(cards/" + getCardData(element.id).filename + ")");
             $("#" + element.id).draggable();
             getCardData(element.id).isLarge = false;
             $("#" + element.id).mouseup(evnent => {
@@ -111,7 +110,6 @@ var promises =[];
             $("#" + element.id).dblclick(event => {
                 var id = event.currentTarget.id;
                 if(getCardData(id).isLarge == false){
-//                    var scale = {width: $("#" + element.id).width() * 2, height: $("#" + element.id).height() * 2};
                     var animatepos = {
                         top: $("#" + element.id).position().top - $("#" + element.id).children("img").height() /2,
                         left: $("#" + element.id).position().left - $("#" + element.id).children("img").width() /2
