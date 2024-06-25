@@ -93,21 +93,48 @@ var promises =[];
             $("#" + element.id).addClass("dragableCard");
 
             $("#" + element.id).append(`<img src="cards/${getCardData(element.id).filename}" alt="${getCardData(element.id).text}" height="80" />`);
-            //  $("#" + element.id).css("background-image", "url(cards/" + getCardData(element.id).filename + ")");
             $("#" + element.id).draggable();
+            getCardData(element.id).isLarge = false;
             $("#" + element.id).mouseup(evnent => {
                 var id = event.currentTarget.id;
                 getCardData(id).pos = {left: $("#"+ id).offset().left / $(window).width(), top:  $("#"+ id).offset().top / $(window).height()};
 
                 var offset = $("#"+ id).offset();
-//                $("#"+ id).prependTo("#movedcard");
-//                $("#"+ id).css("position", "absolute");
                 $("#" + id).offset(offset);
 
             });
             $("#" + element.id).mousedown(evnent => {
                 var id = event.currentTarget.id;
                 $("#" + id).css("z-index", zindex ++);
+            });
+            $("#" + element.id).dblclick(event => {
+                var id = event.currentTarget.id;
+                if(getCardData(id).isLarge == false){
+                    var animatepos = {
+                        top: $("#" + element.id).position().top - $("#" + element.id).children("img").height() /2,
+                        left: $("#" + element.id).position().left - $("#" + element.id).children("img").width() /2
+                    };
+                    var animescale = {
+                        width:  $("#" + element.id).children("img").width() * 2,
+                        height: $("#" + element.id).children("img").height() * 2,
+                    };
+                    $("#" + element.id).animate(animatepos, 500);
+                    $("#" + element.id).children("img").animate(animescale, 500);
+                    getCardData(id).isLarge = true;
+                }
+                else
+                {
+                    var animatepos = {
+                        top: $("#" + element.id).position().top + $("#" + element.id).children("img").height() /4,
+                        left: $("#" + element.id).position().left + $("#" + element.id).children("img").width() /4
+                    };
+                    var animescale = {width:  $("#" + element.id).children("img").width() / 2, height:  $("#" + element.id).children("img").height() / 2};
+                    $("#" + element.id).animate(animatepos, 500);
+                    $("#" + element.id).children("img").animate(animescale, 500);
+                    getCardData(id).isLarge = false;
+
+                }
+
             });
             resolve();
         })
@@ -143,7 +170,7 @@ $(window).on('load',() => {
 
         })
 
-    })
+    });
 
 })
 
@@ -187,7 +214,7 @@ $("#cardbase").droppable({
 $(window).resize(() => {
     renewCardPos();
 
-})
+});
 
 $("#createChart").click(() =>{
 
@@ -214,7 +241,8 @@ $("#createChart").click(() =>{
 
     })
 
-})
+});
+
 
 </script>
 </body>
