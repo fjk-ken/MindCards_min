@@ -12,6 +12,8 @@
     
     <script src="data/carddata.js"></script>
     <script src="data/setting.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="js/graph.js"></script>
 
 </head>
@@ -33,8 +35,10 @@
     <div id="cardbase"></div>
     <div class="buttonpanel">
         <button id="createChart">結果を表示</button>
+        <button id="chart2canvas">グラフを保存</button>
     </div>
     <div id="mindGraph">
+        <p id="username">○○さんのグラフ</p>
         <table id="graphtable">
         </table>
     </div>
@@ -282,7 +286,16 @@ $("#loginbutton").click(() =>{
     username = $("#loginid").val();
     $("#loginform").hide();
     $("#loginform").css("z-index", "-1");
-})
+});
+
+$("#chart2canvas").click(() =>{
+    html2canvas(document.querySelector("#mindGraph")).then((canvas) =>{
+        const piclink = document.createElement("a");
+        piclink.href = canvas.toDataURL("image/png");
+        piclink.download = username + ".png";
+        piclink.click();
+    });
+});
 
 </script>
 </body>

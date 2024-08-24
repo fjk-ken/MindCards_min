@@ -93,3 +93,9 @@
 {
     font-size: 1.1em;
 }
+
+#username
+{
+    text-align: center;
+    font-weight: bold;
+}
