@@ -16,6 +16,13 @@
 
 </head>
 <body>
+    <div id="loginform">
+        <div id="logindialog">
+            <label for="inputid">名前またはIDを入力してください</label><br />
+            <input type="text" id="loginid" placeholder="名前まはたID" />
+            <input type="button" id="loginbutton" value="開始" />
+        </div>
+    </div>
 
     <div id="movedcard"></div>
     <div class="main">
@@ -37,6 +44,8 @@
 var mindChart;
 
 var zindex = 1;
+
+var username = "";
 
 const getCardData = id => {
     const carddata = cardMaster.findIndex(data => data.id == id);
@@ -149,6 +158,9 @@ Promise.all(promises).then(() => {
 })
 
 $(window).on('load',() => {
+
+
+
     var cardsetPromises = [];
     var cardOffsets = [];
 
@@ -266,6 +278,11 @@ $("#createChart").click(() =>{
 
 });
 
+$("#loginbutton").click(() =>{
+    username = $("#loginid").val();
+    $("#loginform").hide();
+    $("#loginform").css("z-index", "-1");
+})
 
 </script>
 </body>
