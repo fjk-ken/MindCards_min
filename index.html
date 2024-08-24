@@ -163,8 +163,6 @@ Promise.all(promises).then(() => {
 
 $(window).on('load',() => {
 
-
-
     var cardsetPromises = [];
     var cardOffsets = [];
 
@@ -190,6 +188,8 @@ $(window).on('load',() => {
         })
 
     });
+
+    $("#chart2canvas").hide();
 
 })
 
@@ -279,6 +279,7 @@ $("#createChart").click(() =>{
         graphview(graphValue);
 
     })
+    $("#chart2canvas").show();
 
 });
 
@@ -286,15 +287,27 @@ $("#loginbutton").click(() =>{
     username = $("#loginid").val();
     $("#loginform").hide();
     $("#loginform").css("z-index", "-1");
+    $("#username").text(username + "さんのグラフ");
+});
+
+$("#loginid").keypress((e) =>{
+    if(e.which == 13){
+        $("#loginbutton").click();
+    }
 });
 
 $("#chart2canvas").click(() =>{
     html2canvas(document.querySelector("#mindGraph")).then((canvas) =>{
         const piclink = document.createElement("a");
+        piclink.download = getCurrentDateYYYYMMDD() + "_" + username + ".png";
+        if(urlArg.eventname != undefined)
+        {
+            piclink.download = urlArg.eventname + piclink.download;
+        }
         piclink.href = canvas.toDataURL("image/png");
-        piclink.download = username + ".png";
         piclink.click();
     });
+    $("#chart2canvas").hide();
 });
 
 </script>

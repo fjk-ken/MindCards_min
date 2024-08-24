@@ -14,3 +14,19 @@ const mindData = [
 ];
 
 const maxgraph = 15;
+
+function getCurrentDateYYYYMMDD() {
+    var dt = new Date();
+    var year = dt.getFullYear();
+    var month = ("00" + (dt.getMonth() + 1)).slice(-2);
+    var day = ("00" + dt.getDate()).slice(-2);
+    return year + month + day;
+}
+
+var arg  = new Object;
+var url = location.search.substring(1).split('&');
+for(i=0; url[i]; i++) {
+   var keyval = url[i].split('=');
+   arg[keyval[0]] = keyval[1];
+}
+const urlArg = arg;
