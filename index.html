@@ -12,10 +12,19 @@
     
     <script src="data/carddata.js"></script>
     <script src="data/setting.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="js/graph.js"></script>
 
 </head>
 <body>
+    <div id="loginform">
+        <div id="logindialog">
+            <label for="inputid">名前またはIDを入力してください</label><br />
+            <input type="text" id="loginid" placeholder="名前まはたID" />
+            <input type="button" id="loginbutton" value="開始" />
+        </div>
+    </div>
 
     <div id="movedcard"></div>
     <div class="main">
@@ -26,8 +35,10 @@
     <div id="cardbase"></div>
     <div class="buttonpanel">
         <button id="createChart">結果を表示</button>
+        <button id="chart2canvas">グラフを保存</button>
     </div>
     <div id="mindGraph">
+        <p id="username">○○さんのグラフ</p>
         <table id="graphtable">
         </table>
     </div>
@@ -37,6 +48,8 @@
 var mindChart;
 
 var zindex = 1;
+
+var username = "";
 
 const getCardData = id => {
     const carddata = cardMaster.findIndex(data => data.id == id);
@@ -149,6 +162,7 @@ Promise.all(promises).then(() => {
 })
 
 $(window).on('load',() => {
+
     var cardsetPromises = [];
     var cardOffsets = [];
 
@@ -174,6 +188,8 @@ $(window).on('load',() => {
         })
 
     });
+
+    $("#chart2canvas").hide();
 
 })
 
@@ -263,9 +279,36 @@ $("#createChart").click(() =>{
         graphview(graphValue);
 
     })
+    $("#chart2canvas").show();
 
 });
 
+$("#loginbutton").click(() =>{
+    username = $("#loginid").val();
+    $("#loginform").hide();
+    $("#loginform").css("z-index", "-1");
+    $("#username").text(username + "さんのグラフ");
+});
+
+$("#loginid").keypress((e) =>{
+    if(e.which == 13){
+        $("#loginbutton").click();
+    }
+});
+
+$("#chart2canvas").click(() =>{
+    html2canvas(document.querySelector("#mindGraph")).then((canvas) =>{
+        const piclink = document.createElement("a");
+        piclink.download = getCurrentDateYYYYMMDD() + "_" + username + ".png";
+        if(urlArg.eventname != undefined)
+        {
+            piclink.download = urlArg.eventname + piclink.download;
+        }
+        piclink.href = canvas.toDataURL("image/png");
+        piclink.click();
+    });
+    $("#chart2canvas").hide();
+});
 
 </script>
 </body>

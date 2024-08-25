@@ -3,7 +3,7 @@ var graphwork = null;
 
 const createGraph = (table, datas) => {
     graphData = $.extend([], datas);
-    $('body').append(`<div id="graphwork" style="width: 100%"></div>`);
+    $("#mindGraph").append(`<div id="graphwork" style="width: 100%"></div>`);
     graphwork = $("#graphwork");
 
     for (var data of graphData) {
