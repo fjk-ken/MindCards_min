@@ -27,6 +27,6 @@ var arg  = new Object;
 var url = location.search.substring(1).split('&');
 for(i=0; url[i]; i++) {
    var keyval = url[i].split('=');
-   arg[keyval[0]] = keyval[1];
+   arg[keyval[0]] = decodeURI(keyval[1]);
 }
 const urlArg = arg;
