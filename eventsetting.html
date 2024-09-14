@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>イベントの設定</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" integrity="sha512-NFUcDlm4V+a2sjPX7gREIXgCSFja9cHtKPOL1zj6QhnE0vcY695MODehqkaGYTLyL2wxe/wtr4Z49SvqXq12UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div class="settingmain">
+        <h1>イベントの設定</h1>
+        <div id="eventnameform">
+            <label for="eventname">イベント名</label><input type="text" name="eventname" id="eventname">
+        </div>
+        <div id="qrcodepain">
+            <div id="qrcode"></div>
+        </div>
+        <div id="eventurl"><a href="">ワークへのリンク</a></div>
+    </div>
+</body>
+<script>
+    $("#eventname").on("input", () =>{
+        var url = $(location).attr("protocol") + "//" + $(location).attr("host") + "/?eventname=" + encodeURI( $("#eventname").val());
+        $("#qrcode").remove();
+        $("#qrcodepain").append("<div id='qrcode'></div>");
+        $("#qrcode").qrcode(url);
+        $("#eventurl a").attr("href", url);
+//        $("#eventurl a").text(url);
+    })
+</script>
+</html>
